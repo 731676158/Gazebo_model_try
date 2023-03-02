@@ -53,6 +53,12 @@
     <origin rpy="0 0 0" xyz="-0.03 0 ${base_z_size/2}"/>
     </xacro:imu>
 
+	<!-- GPS 模块 -->
+	<xacro:include filename="$(find scout_gazebo)/urdf/gps_func.xacro" />
+	<xacro:gps sensor_name="gps" parent_link="base_link">
+	<origin rpy="0 0 0" xyz="-0.03 0 ${base_z_size}"/>
+    </xacro:gps>
+
     <!-- 机器人导航控制模块 -->
     <xacro:include filename="$(find scout_gazebo)/urdf/move.xacro" />
 

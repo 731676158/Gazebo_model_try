@@ -12,3 +12,5 @@ gazebo --verbose
 killall gzserver
 killall gzclient
 
+控制小车命令：
+ROS_NAMESPACE=vehicle_1 rosrun teleop_twist_keyboard teleop_twist_keyboard.py

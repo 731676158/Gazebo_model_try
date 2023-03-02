@@ -4,10 +4,10 @@
 	
 	<!-- 在 gazebo 中启动一个环境 -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch"> 
-        <arg name="world_name" value="$(find scout_gazebo)/worlds/lab.world" /> 
+        <arg name="world_name" value="$(find scout_gazebo)/worlds/mine.world" /> 
     </include>
 
-	<group ns="vehicle_1">
+<!--	<group ns="vehicle_1">-->
     <arg name = "model_xacro" default = "$(find scout_gazebo)/urdf/base.xacro" />
     <!-- 将 Urdf 文件的内容加载到参数服务器 -->
     <param name="robot_description" command="$(find xacro)/xacro $(arg model_xacro)" />
@@ -17,41 +17,9 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
     <!-- Loading rviz files -->
-    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_gazebo)/config/show_robot.rviz" />  -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_gazebo)/config/show_robot.rviz" />  
     
     <!-- 在 gazebo 中加载机器人模型  -->
-    <node pkg="gazebo_ros" type="spawn_model" name="model1" args="-urdf -model scout1 -param robot_description -x 0 -y -2" />  
-    </group>
-
-	<group ns="vehicle_2">
-    <arg name = "model_xacro" default = "$(find scout_gazebo)/urdf/base.xacro" />
-    <!-- 将 Urdf 文件的内容加载到参数服务器 -->
-    <param name="robot_description" command="$(find xacro)/xacro $(arg model_xacro)" />
-    <!-- Launch  the joint state publisher -->
-    <node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" ></node>
-    <!-- Launch  the robot state publisher -->
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-
-    <!-- Loading rviz files -->
-    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_gazebo)/config/show_robot.rviz" />  -->
-    
-    <!-- 在 gazebo 中加载机器人模型  -->
-    <node pkg="gazebo_ros" type="spawn_model" name="model2" args="-urdf -model scout2 -param robot_description -x 0 -y 0" />  
-    </group>
-
-	<group ns="vehicle_3">
-    <arg name = "model_xacro" default = "$(find scout_gazebo)/urdf/base.xacro" />
-    <!-- 将 Urdf 文件的内容加载到参数服务器 -->
-    <param name="robot_description" command="$(find xacro)/xacro $(arg model_xacro)" />
-    <!-- Launch  the joint state publisher -->
-    <node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" ></node>
-    <!-- Launch  the robot state publisher -->
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-
-    <!-- Loading rviz files -->
-    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_gazebo)/config/show_robot.rviz" />  -->
-    
-    <!-- 在 gazebo 中加载机器人模型  -->
-    <node pkg="gazebo_ros" type="spawn_model" name="model3" args="-urdf -model scout3 -param robot_description -x 0 -y 2" />  
-    </group>
+    <node pkg="gazebo_ros" type="spawn_model" name="model1" args="-urdf -model scout1 -param robot_description -x 0 -y -0" />
+<!--    </group>-->
 </launch>
