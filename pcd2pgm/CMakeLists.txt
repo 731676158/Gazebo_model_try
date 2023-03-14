@@ -26,7 +26,10 @@ include_directories(
 )
 
 
-find_package(PCL REQUIRED)
+find_package(PCL 1.8 REQUIRED)
+
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 include_directories(
   include

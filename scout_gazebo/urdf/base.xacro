@@ -54,10 +54,11 @@
     </xacro:imu>
 
 	<!-- GPS 模块 -->
+<!--
 	<xacro:include filename="$(find scout_gazebo)/urdf/gps_func.xacro" />
 	<xacro:gps sensor_name="gps" parent_link="base_link">
-	<origin rpy="0 0 0" xyz="-0.03 0 ${base_z_size}"/>
-    </xacro:gps>
+    <origin rpy="0 0 0" xyz="-0.03 0 ${base_z_size*3/2}"/>
+    </xacro:gps>-->
 
     <!-- 机器人导航控制模块 -->
     <xacro:include filename="$(find scout_gazebo)/urdf/move.xacro" />
@@ -115,4 +116,14 @@
     <xacro:scout_wheel_type2 wheel_prefix="rear_right">
         <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="3.14 0 0" />
     </xacro:scout_wheel_type2>
+
+    <gazebo>
+	  <plugin name="ground_truth" filename="libgazebo_ros_p3d.so">
+		  <frameName>map</frameName>
+		  <bodyName>base_link</bodyName>
+		  <topicName>gps</topicName>
+		  <updateRate>30.0</updateRate>
+	  </plugin>
+  </gazebo>
+
 </robot>

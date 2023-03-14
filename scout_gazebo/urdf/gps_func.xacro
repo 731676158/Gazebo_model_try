@@ -1,4 +1,4 @@
-<robot name="sensor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
  
   <xacro:macro name="gps" params="sensor_name parent_link *origin">
   <xacro:property name="height1" value="0.05" />
@@ -7,11 +7,11 @@
   <joint name="gpstobase" type="fixed">
     <xacro:insert_block name="origin" />
     <parent link="${parent_link}"/>
-    <child link="sensor"/>
-    <!--origin xyz="0 0 ${height1 / 2}" /-->
+    <child link="gps_sensor"/>
+    <!--origin xyz="-0.03 0 0.5" rpy="0 0 0" /-->
   </joint>
  <!-- Base Link -->
-  <link name="sensor">
+  <link name="gps_sensor">
     <collision>
       <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
       <geometry>
@@ -38,15 +38,14 @@
     <color rgba="${255/255} ${108/255} ${10/255} 1.0"/>
   </material>
  
-        <gazebo reference="sensor">
+        <gazebo reference="gps_sensor">
 	    <material>Gazebo/Orange</material>
-	    <sensor name="gps_sensor" type="gps">
-	    <topic>__default_topic__</topic>
-	    <updateRate>4.0</updateRate>
+	    <sensor name="gps_gazebo" type="gps">
+	    <always_on>true</always_on>
             <plugin name="gazebo_ros_gps" filename="libhector_gazebo_ros_gps.so">
                 <updateRate>4.0</updateRate>
-                <bodyName>sensor</bodyName>
-                <frameId>sensor</frameId>
+                <bodyName>gps_sensor</bodyName>
+                <frameId>gps</frameId>
                 <topicName>gps/fix</topicName>
                 <velocityTopicName>gps/fix_velocity</velocityTopicName>
                 <referenceLatitude>-30.06022459407145675</referenceLatitude>
@@ -58,6 +57,7 @@
                 <gaussianNoise>0.05 0.05 0.05</gaussianNoise>
                 <velocityDrift>0.001 0.001 0.001</velocityDrift>
                 <velocityGaussianNoise>0.5 0.5 0.5</velocityGaussianNoise>
+                <frameName>gps_sensor</frameName>    
             </plugin>
 	</sensor>
         </gazebo>
