@@ -27,6 +27,8 @@ include_directories(include
   ${catkin_INCLUDE_DIRS}
 )
 
+include_directories(/usr/include/sdformat-6.3)
+
 link_directories(
   ${catkin_LIBRARY_DIRS}
 )

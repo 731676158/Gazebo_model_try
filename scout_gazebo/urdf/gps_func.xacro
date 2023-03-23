@@ -1,53 +1,14 @@
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="sensor" xmlns:xacro="http://www.ros.org/wiki/xacro">
  
-  <xacro:macro name="gps" params="sensor_name parent_link *origin">
-  <xacro:property name="height1" value="0.05" />
-  <xacro:property name="width" value="0.05" />
- <!-- Used for fixing robot to Gazebo 'base_link' -->
-  <joint name="gpstobase" type="fixed">
-    <xacro:insert_block name="origin" />
-    <parent link="${parent_link}"/>
-    <child link="gps_sensor"/>
-    <!--origin xyz="-0.03 0 0.5" rpy="0 0 0" /-->
-  </joint>
- <!-- Base Link -->
-  <link name="gps_sensor">
-    <collision>
-      <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
-      <geometry>
-        <box size="${width} ${width} ${height1}"/>
-      </geometry>
-    </collision>
-    <visual>
-      <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
-      <geometry>
-        <box size="${width} ${width} ${height1}"/>
-      </geometry>
-      <material name="orange"/>
-    </visual>
-    <inertial>
-      <origin xyz="0 0 1" rpy="0 0 0"/>
-      <mass value="1"/>
-      <inertia
-        ixx="1.0" ixy="0.0" ixz="0.0"
-        iyy="1.0" iyz="0.0"
-        izz="1.0"/>
-    </inertial>
-  </link>
-  <material name="orange">
-    <color rgba="${255/255} ${108/255} ${10/255} 1.0"/>
-  </material>
+  <xacro:include filename="$(find scout_gazebo)/urdf/gps_des.xacro"/>
  
-        <gazebo reference="gps_sensor">
-	    <material>Gazebo/Orange</material>
-	    <sensor name="gps_gazebo" type="gps">
-	    <always_on>true</always_on>
-            <plugin name="gazebo_ros_gps" filename="libhector_gazebo_ros_gps.so">
+        <gazebo>
+            <plugin name="gps_sensor" filename="libhector_gazebo_ros_gps.so">
                 <updateRate>4.0</updateRate>
-                <bodyName>gps_sensor</bodyName>
+                <bodyName>sensor</bodyName>
                 <frameId>gps</frameId>
-                <topicName>gps/fix</topicName>
-                <velocityTopicName>gps/fix_velocity</velocityTopicName>
+                <topicName>gps</topicName>
+                <velocityTopicName>gps/velo</velocityTopicName>
                 <referenceLatitude>-30.06022459407145675</referenceLatitude>
                 <referenceLongitude>-51.173913575780311191</referenceLongitude>
                 <referenceHeading>90</referenceHeading>
@@ -57,9 +18,6 @@
                 <gaussianNoise>0.05 0.05 0.05</gaussianNoise>
                 <velocityDrift>0.001 0.001 0.001</velocityDrift>
                 <velocityGaussianNoise>0.5 0.5 0.5</velocityGaussianNoise>
-                <frameName>gps_sensor</frameName>    
             </plugin>
-	</sensor>
         </gazebo>
-  </xacro:macro>
 </robot>

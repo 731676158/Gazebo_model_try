@@ -1,20 +1,14 @@
 <launch>
-
-	<include file="$(find gazebo_ros)/launch/empty_world.launch"> 
-        <arg name="world_name" value="$(find scout_gazebo)/worlds/mine1.world" /> 
-    </include>
-
-	<arg name = "model_xacro" default = "$(find scout_gazebo)/urdf/base.xacro" />
+    <arg name = "model_xacro" default = "$(find scout_gazebo)/urdf/base.xacro" />
+    <!-- 将 Urdf 文件的内容加载到参数服务器 -->
     <param name="robot_description" command="$(find xacro)/xacro $(arg model_xacro)" />
 
-    <!-- 启动 rviz -->
-    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find scout_gazebo)/config/show_car.rviz" />
-    
-    <!-- 关节以及机器人状态发布节点 -->
-    <!--node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /-->
-    <node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" ></node>
+    <!--运行 joint_state_publisher 节点，发布机器人的关节状态-->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+    <!--运行 robot_state_publisher 节点，发布TF-->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
-	<node pkg="gazebo_ros" type="spawn_model" name="model1" args="-urdf -model scout1 -param robot_description -x 0 -y -0" />
-
-</launch>   
+    <!--运行rviz可视化界面-->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_gazebo)/config/show_robot.rviz" required="true" />
+</launch>

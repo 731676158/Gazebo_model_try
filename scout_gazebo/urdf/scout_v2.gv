@@ -1,0 +1,68 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"base_footprint" [label="base_footprint"];
+"camera_bottom_screw_frame" [label="camera_bottom_screw_frame"];
+"camera_link" [label="camera_link"];
+"camera_depth_frame" [label="camera_depth_frame"];
+"camera_color_frame" [label="camera_color_frame"];
+"camera_color_optical_frame" [label="camera_color_optical_frame"];
+"camera_depth_optical_frame" [label="camera_depth_optical_frame"];
+"camera_left_ir_frame" [label="camera_left_ir_frame"];
+"camera_left_ir_optical_frame" [label="camera_left_ir_optical_frame"];
+"camera_right_ir_frame" [label="camera_right_ir_frame"];
+"camera_right_ir_optical_frame" [label="camera_right_ir_optical_frame"];
+"front_left_wheel_link" [label="front_left_wheel_link"];
+"front_right_wheel_link" [label="front_right_wheel_link"];
+"gps_sensor" [label="gps_sensor"];
+"imu_base" [label="imu_base"];
+"inertial_link" [label="inertial_link"];
+"rear_left_wheel_link" [label="rear_left_wheel_link"];
+"rear_right_wheel_link" [label="rear_right_wheel_link"];
+"support" [label="support"];
+"velodyne_base_link" [label="velodyne_base_link"];
+"velodyne" [label="velodyne"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "base_footprint_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"base_footprint_joint" -> "base_footprint"
+"base_link" -> "camera_joint" [label="xyz: 0 0 0.3 \nrpy: 0 -0 0"]
+"camera_joint" -> "camera_bottom_screw_frame"
+"camera_bottom_screw_frame" -> "camera_link_joint" [label="xyz: 0 0.0175 0.0125 \nrpy: 0 -0 0"]
+"camera_link_joint" -> "camera_link"
+"camera_link" -> "camera_depth_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"camera_depth_joint" -> "camera_depth_frame"
+"camera_depth_frame" -> "camera_color_joint" [label="xyz: 0 0.015 0 \nrpy: 0 -0 0"]
+"camera_color_joint" -> "camera_color_frame"
+"camera_color_frame" -> "camera_color_optical_joint" [label="xyz: 0 0 0 \nrpy: -1.5708 -5.55112e-17 -1.5708"]
+"camera_color_optical_joint" -> "camera_color_optical_frame"
+"camera_depth_frame" -> "camera_depth_optical_joint" [label="xyz: 0 0 0 \nrpy: -1.5708 -5.55112e-17 -1.5708"]
+"camera_depth_optical_joint" -> "camera_depth_optical_frame"
+"camera_depth_frame" -> "camera_left_ir_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"camera_left_ir_joint" -> "camera_left_ir_frame"
+"camera_left_ir_frame" -> "camera_left_ir_optical_joint" [label="xyz: 0 0 0 \nrpy: -1.5708 -5.55112e-17 -1.5708"]
+"camera_left_ir_optical_joint" -> "camera_left_ir_optical_frame"
+"camera_depth_frame" -> "camera_right_ir_joint" [label="xyz: 0 -0.05 0 \nrpy: 0 -0 0"]
+"camera_right_ir_joint" -> "camera_right_ir_frame"
+"camera_right_ir_frame" -> "camera_right_ir_optical_joint" [label="xyz: 0 0 0 \nrpy: -1.5708 -5.55112e-17 -1.5708"]
+"camera_right_ir_optical_joint" -> "camera_right_ir_optical_frame"
+"base_link" -> "front_left_wheel" [label="xyz: 0.249 0.29153 -0.0702 \nrpy: 0 -0 0"]
+"front_left_wheel" -> "front_left_wheel_link"
+"base_link" -> "front_right_wheel" [label="xyz: 0.249 -0.29153 -0.0702 \nrpy: 3.14 -0 0"]
+"front_right_wheel" -> "front_right_wheel_link"
+"base_link" -> "gpstobase" [label="xyz: -0.03 0 0.14 \nrpy: 0 -0 0"]
+"gpstobase" -> "gps_sensor"
+"base_link" -> "imutobase" [label="xyz: -0.03 0 0.105 \nrpy: 0 -0 0"]
+"imutobase" -> "imu_base"
+"base_link" -> "inertial_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"inertial_joint" -> "inertial_link"
+"base_link" -> "rear_left_wheel" [label="xyz: -0.249 0.29153 -0.0702 \nrpy: 0 -0 0"]
+"rear_left_wheel" -> "rear_left_wheel_link"
+"base_link" -> "rear_right_wheel" [label="xyz: -0.249 -0.29153 -0.0702 \nrpy: 3.14 -0 0"]
+"rear_right_wheel" -> "rear_right_wheel_link"
+"base_link" -> "support2base_link" [label="xyz: -0.2 0 0.21 \nrpy: 0 -0 0"]
+"support2base_link" -> "support"
+"support" -> "velodyne_base_mount_joint" [label="xyz: 0 0 0.15 \nrpy: 0 -0 0"]
+"velodyne_base_mount_joint" -> "velodyne_base_link"
+"velodyne_base_link" -> "velodyne_base_scan_joint" [label="xyz: 0 0 0.0377 \nrpy: 0 -0 0"]
+"velodyne_base_scan_joint" -> "velodyne"
+}

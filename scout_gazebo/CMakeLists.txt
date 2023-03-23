@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_plugins
   gazebo_ros
   gazebo_ros_control
+  hector_gazebo_plugins
   urdf
   xacro
 )
